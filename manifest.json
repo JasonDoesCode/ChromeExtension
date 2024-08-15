@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Global Entry Drops",
+    "description": "Extension description.",
+    "version": "0.1",
+    "action": {
+        "default_popup": "popup/popup.html"
+    },
+    "icons": {
+        "16": "icons/passport-16.png", 
+        "32": "icons/passport-32.png",
+        "48": "icons/passport-48.png", 
+        "128": "icons/passport-128.png"
+    },
+    "background" : {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+    "permissions": [
+        "storage"
+    ]
+}
