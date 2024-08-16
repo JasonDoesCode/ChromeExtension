@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Entry Drops</title>
     <link rel="stylesheet" href="bulma.min.css">
+    
 </head>
 <body>
     
@@ -23,32 +24,35 @@
         <div class="field">
             <label class="label">Location ID</label>
             <div class="select">
-                <select></select>
+                <select id="locationId"></select>
             </div>
         </div>
 
         <div class="field">
             <label class="label">Start Date</label>
             <div class="control">
-                <input type="date" class="input is-fullwidth">
+                <input type="date" class="input is-fullwidth" id="startDate">
             </div>
         </div>
 
         <div class="field">
             <label class="label">End Date</label>
             <div class="control">
-                <input type="date" class="input is-fullwidth">
+                <input type="date" class="input is-fullwidth" id="endDate">
             </div>
         </div>
     </div>
 
     <div class="container p-3">
-        <button class="button is-success is-fullwidth">Save & Start</button>
+        <button class="button is-success is-fullwidth" id="startButton">Save & Start</button>
     </div>
 
     <div class="container p-3">
-        <button class="button is-danger is-fullwidth">Stop</button>
+        <button class="button is-danger is-fullwidth" id="endButton">Stop</button>
     </div>
 
 </body>
+
+<script src="popup.js"></script>
+
 </html>
