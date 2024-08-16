@@ -8,9 +8,13 @@ const startButton = document.getElementById("startButton")
 const stopButton = document.getElementById("stopButton")
 
 startButton.onclick = function() {
-    console.log("You clicked the Start Button!");
+    if (startDateElement.value){
+        console.log("Start Date:", startDateElement.value);
+    } else {
+        console.log("Start Date is invalid!")
+    }
 }
 
 stopButton.onclick = function() {
-    console.log("You clicked the Stop Button!");
+    console.log("End Date:", endDateElement.value);
 }
