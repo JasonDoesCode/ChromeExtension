@@ -4,8 +4,8 @@ const startDateElement = document.getElementById("startDate")
 const endDateElement = document.getElementById("endDate")
 
 // BUTTONS
-const startButton = document.getElementById("startDate")
-const stopButton = document.getElementById("stopDate")
+const startButton = document.getElementById("startButton")
+const stopButton = document.getElementById("stopButton")
 
 startButton.onclick = function() {
     console.log("You clicked the Start Button!");
