@@ -6,10 +6,13 @@
 //         "endDate": "2023-03-03"
 //     }
 // }
+import fetchLocations from "./api/fetchLocations.js"
 
+chrome.runtime.onInstalled.addListener(details => {
+    fetchLocations()
+})
 
-
-chrome.runtime.onMessage.addListener( data => {
+chrome.runtime.onMessage.addListener(data => {
     const { event, prefs } = data
 
     switch (event){
@@ -30,8 +33,8 @@ const handleOnStop = () => {
 }
 
 const handleOnStart = (prefs) => {
-    // console.log("Background onStart")
-    // console.log("prefs:", prefs)
+    console.log("Background onStart")
+    console.log("prefs:", prefs)
 
     chrome.storage.local.set(prefs)
 }
