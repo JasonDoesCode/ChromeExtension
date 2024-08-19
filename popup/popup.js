@@ -23,8 +23,8 @@ stopButton.onclick = () => {
     chrome.runtime.sendMessage({event: "onStop"})
 }
 
-chrome.storage.local.get(["locationId", "startDate", "endDate", "locations"], (result) => {
-    const {locationId, startDate, endDate, locations} = result
+chrome.storage.local.get(["locationId", "startDate", "endDate", "locations", "isRunning"], (result) => {
+    const {locationId, startDate, endDate, locations, isRunning} = result
 
     setLocations(locations);
 
@@ -43,6 +43,8 @@ chrome.storage.local.get(["locationId", "startDate", "endDate", "locations"], (r
     if(locations){
         console.log(locations);
     }
+
+    console.log(isRunning);
 })
 
 
