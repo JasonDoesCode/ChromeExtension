@@ -8,10 +8,13 @@
 // }
 import fetchLocations from "./api/fetchLocations.js"
 
+// runs every time the app is installed
 chrome.runtime.onInstalled.addListener(details => {
     fetchLocations()
 })
 
+
+// runs ever time a message is sent from the popup js file
 chrome.runtime.onMessage.addListener(data => {
     const { event, prefs } = data
 
