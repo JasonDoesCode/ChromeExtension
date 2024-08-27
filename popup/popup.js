@@ -7,20 +7,95 @@ const endDateElement = document.getElementById("endDate")
 const startButton = document.getElementById("startButton")
 const stopButton = document.getElementById("stopButton")
 
-startButton.onclick = () => {
+// SPAN listeners
+const runningSpan = document.getElementById("runningSpan")
+const stopSpan = document.getElementById("stopSpan")
 
-    const popupPrefs = {
-        locationId: locationIdElement.value,
-        startDate: startDateElement.value,
-        endDate: endDateElement.value,
-        tzData: locationIdElement.options[locationIdElement.selectedIndex].getAttribute('data-tz') // options is refering to the options of within the dropdown
+
+// Error Mesage listeners
+const locationIdError = document.getElementById("locationIdError")
+const startDateError = document.getElementById("startDateError")
+const endDateError = document.getElementById("endDateError")
+
+const hideElement = (elem) => {
+    elem.style.display = "none";
+}
+
+const showElement = (elem) => {
+    elem.style.display = "";
+}
+
+const disableElement = (elem) => {
+    elem.disabled = true;
+}
+
+const enableElement = (elem) => {
+    elem.disabled = false;
+}
+
+const handleOnStartState = () => {
+    // Spans
+    showElement(runningSpan);
+    hideElement(stopSpan);
+
+    // Buttons
+    disableElement(startButton);
+    enableElement(stopButton);
+}
+
+const handleOnStopState = () => {
+    // Spans
+    showElement(stopSpan);
+    hideElement(runningSpan);
+
+    // Buttons
+    disableElement(stopButton);
+    enableElement(startButton);
+}
+
+const performOnStartValidations = () => {
+    if(!locationIdElement.value){
+        showElement(locationIdError);
+    } else {
+        hideElement(locationIdError);
     }
 
-    chrome.runtime.sendMessage({event: "onStart", prefs: popupPrefs})
+    if(!startDateElement.value){
+        showElement(startDateError);
+    } else {
+        hideElement(startDateError);
+    }
+
+    if(!endDateElement.value){
+        showElement(endDateError);
+    } else {
+        hideElement(endDateError);
+    }
+
+    return locationIdElement.value && startDateElement.value && endDateElement.value
+}
+
+startButton.onclick = () => {
+    const allFieldsValid = performOnStartValidations();
+
+    if(allFieldsValid){
+        const popupPrefs = {
+            locationId: locationIdElement.value,
+            startDate: startDateElement.value,
+            endDate: endDateElement.value,
+            tzData: locationIdElement.options[locationIdElement.selectedIndex].getAttribute('data-tz') // options is refering to the options of within the dropdown
+        }
+    
+        chrome.runtime.sendMessage({event: "onStart", prefs: popupPrefs})
+    
+        handleOnStartState();
+    }
 }
 
 stopButton.onclick = () => {
     chrome.runtime.sendMessage({event: "onStop"})
+
+    handleOnStopState();
 }
 
 chrome.storage.local.get(["locationId", "startDate", "endDate", "locations", "isRunning"], (result) => {
@@ -44,7 +119,11 @@ chrome.storage.local.get(["locationId", "startDate", "endDate", "locations", "is
         console.log(locations);
     }
 
-    console.log(isRunning);
+    if (isRunning){
+        handleOnStartState();
+    } else {
+        handleOnStopState();
+    }
 })
 
 

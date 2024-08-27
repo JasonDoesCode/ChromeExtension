@@ -10,7 +10,8 @@ import fetchLocations from "./api/fetchLocations.js"
 
 // runs every time the app is installed
 chrome.runtime.onInstalled.addListener(details => {
-    fetchLocations()
+    fetchLocations();
+    setRunningStatus(false);
 })
 
 
