@@ -41,6 +41,11 @@ const handleOnStartState = () => {
     // Buttons
     disableElement(startButton);
     enableElement(stopButton);
+
+    // Inputs
+    disableElement(locationIdElement);
+    disableElement(startDateElement);
+    disableElement(endDateElement);
 }
 
 const handleOnStopState = () => {
@@ -51,6 +56,11 @@ const handleOnStopState = () => {
     // Buttons
     disableElement(stopButton);
     enableElement(startButton);
+
+    // Inputs
+    enableElement(locationIdElement);
+    enableElement(startDateElement);
+    enableElement(endDateElement);
 }
 
 const performOnStartValidations = () => {
@@ -72,7 +82,7 @@ const performOnStartValidations = () => {
         hideElement(endDateError);
     }
 
-    return locationIdElement.value && startDateElement.value && endDateElement.value
+    return locationIdElement.value && startDateElement.value && endDateElement.value;
 }
 
 startButton.onclick = () => {
@@ -83,7 +93,7 @@ startButton.onclick = () => {
             locationId: locationIdElement.value,
             startDate: startDateElement.value,
             endDate: endDateElement.value,
-            tzData: locationIdElement.options[locationIdElement.selectedIndex].getAttribute('data-tz') // options is refering to the options of within the dropdown
+            tzData: locationIdElement.options[locationIdElement.selectedIndex].getAttribute('data-tz') // options is refering to the options of within the dropdown | the data-tz is from fetchLocations()
         }
     
         chrome.runtime.sendMessage({event: "onStart", prefs: popupPrefs})
